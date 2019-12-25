@@ -1,14 +1,6 @@
-# The Sign-in Example
+# GUI-Architectures
 
-- Username/Password input fields
-- A button that is only enabled when both input fields are valid
-
-## MVVM
-
-### On User Input
-
-1. `V`(input fields) triggers commands on the `VM`.
-2. `VM` updates `M`.
-3. `M` validates and notifies `VM` that data changed.
-4. `VM` publishes the update event.
-5. `V`s subscribing to the update event update their views accordingly.
+## Purpose
+1. The primary purpose of this repo is to provide a handy reference for GUI architectures.
+2. In doing so, the repo attempts to provide a widely-accepted/authoritative definition of terms.
+3. Instead of providing simplistic examples that make any architecture seem like it can solve all problems, the repo will attempt to host real-life problems that people have had a hard time solving.
