@@ -16,7 +16,7 @@ This repo will strive to give an accurate summary of GUI architectures, with the
 
 This repo is primarily for personal reference, but if anyone wishes to contribute and share the knowledge, they are most welcome to do so.
 
-## Rubric
+## Rubric [WIP]
 
 To provide an easy guide to the characteristics of each GUI architecture, this repo will use the following rubric:
 
@@ -24,5 +24,8 @@ To provide an easy guide to the characteristics of each GUI architecture, this r
 - **Logic duplication**: Does the architecture make users copy and paste code dealing with business logic/behavior?
 - **Logic cohesiveness**: Does the architecture put related business/presentation logic closely together or are they spread across architectural components?
 - **Responsibility separation**: Does the architecture mix different logic in a single component or are they clearly separated?
+
+- Others:
+  - Can architectural components be used only by looking at the interface, not the implementation?
 
 Personal preference is architectures that *score low on data duplication and logic duplication* while getting *high scores on logic cohesiveness and responsibility separation*.
