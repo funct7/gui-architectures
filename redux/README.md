@@ -39,6 +39,40 @@ A reducer is a function that receives the current state and an action object, de
 - Reducers are **not** allowed to modify the existing state. Instead, they must make immutable updates, by copying the existing state and making changes to the copied values.
 - Reducers **must not** do any asynchronous logic, calculate random values, or cause other "side effects"
 
+#### [Rationale](https://redux.js.org/tutorials/essentials/part-2-app-structure#rules-of-reducers)
+> But why are these rules important? There's a few different reasons:
+>
+> - One of the goals of Redux is to make your code predictable. When a function's output is only calculated from the input arguments, it's easier to understand how that code works, and to test it.
+> - On the other hand, *if a function depends on variables outside itself, or behaves randomly, you never know what will happen when you run it.*
+> - *If a function modifies other values, including its arguments, that can change the way the application works unexpectedly.* This can be a common source of bugs, such as "I updated my state, but now my UI isn't updating when it should!"
+>
+> ... (Emphasis added.)
+
+#### Thunk
+Async logic is typically written in special functions called "thunks". A thunk is a specific kind of Redux function that can contain asynchronous logic.
+
+Thunks are written using two functions:
+- An inside thunk function, which gets dispatch and getState as arguments
+- The outside creator function, which creates and returns the thunk function
+
+```js
+// the outside "thunk creator" function
+const fetchUserById = userId => {
+  // the inside "thunk function"
+  return async (dispatch, getState) => {
+    try {
+      // make an async call in the thunk
+      const user = await userAPI.fetchById(userId);
+      // dispatch an action when we get the response back
+      dispatch(userLoaded(user));
+    } catch (err) {
+      // If something went wrong, handle it here
+    }
+  };
+};
+```
+
+
 ### **Store**
 The current Redux application state lives in an object called the store .
 
@@ -51,8 +85,10 @@ The current Redux application state lives in an object called the store .
 Selectors are functions that know how to extract specific pieces of information from a store state value.
 
 
-# Questions
+# Reflection
 
 1. > One way to solve this is to extract the shared state from the components, and put it into a centralized location outside the component tree. With this, our component tree becomes a big "view", and **any component can access the state or trigger actions, no matter where they are in the tree!** (Emphasis added.)
 
    The limitation imposed by "any component accessing the state or triggering actions" is that the component is not made for generic purposes but is specific to that application. If components were to be used across applications, they must be state/action agnostic, and the best way to achieve this is to function as mere event handlers.
+
+2. Redux sounds like an event loop where `action` is messages sent from threads. `Reducer`s are listeners repsonding to message dispatches.
