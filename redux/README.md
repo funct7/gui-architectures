@@ -92,3 +92,12 @@ Selectors are functions that know how to extract specific pieces of information 
    The limitation imposed by "any component accessing the state or triggering actions" is that the component is not made for generic purposes but is specific to that application. If components were to be used across applications, they must be state/action agnostic, and the best way to achieve this is to function as mere event handlers.
 
 2. Redux sounds like an event loop where `action` is messages sent from threads. `Reducer`s are listeners repsonding to message dispatches.
+
+3. > - **Any React component can use data from the Redux store as needed**
+   >   - Any component can read any data that is in the Redux store
+   >   - Multiple components can read the same data, even at the same time
+   >   - Components should extract the smallest amount of data they need to render themselves
+   >   - Components can combine values from props, state, and the Redux store to determine what UI they need to render. They can read multiple pieces of data from the store, and reshape the data as needed for display.
+   >   - Any component can dispatch actions to cause state updates
+
+   By allowing this, all components are subject to changes to the store; i.e. there is no layer between the store data and the presentation logic. Also, by allowing all and any component to dispatch actions, it gets hard to track which where a change originated.
