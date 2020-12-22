@@ -101,3 +101,20 @@ Selectors are functions that know how to extract specific pieces of information 
    >   - Any component can dispatch actions to cause state updates
 
    By allowing this, all components are subject to changes to the store; i.e. there is no layer between the store data and the presentation logic. Also, by allowing all and any component to dispatch actions, it gets hard to track which where a change originated.
+
+# Question
+
+- Unnecessary persistence, and manual reset of session state.
+
+  - Data used by a subset of components are persisted throughout the lifetime of the application.
+  - Bugs arise when a user signs out, and another user signs in, while the global state is not reset.
+
+- Components directly accessing the global state makes things hard to refactor.
+
+  - Case: A tabular component was changed to support sort on fields.
+    - The children components directly accessed data on the store.
+    - There is no guarantee that an in-place sort will affect other components.
+    - The feature was implemented by the parent component making a copy of the list, sorting it, and providing the list as props on the children.
+    - Most components worked fine, but there was a bug. A component a few more steps down accessed the list on the store directly.
+    
+  - While it could be argued that tests would have prevented it, would all tests guarantee the right behavior? Tests would have to check each field that it was sorted with the rest of the fields.
